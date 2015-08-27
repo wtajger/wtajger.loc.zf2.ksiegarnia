@@ -59,6 +59,25 @@ class KsiazkaController extends AbstractActionController
 		echo "<pre>";
 		print_r($results);
 		echo "</pre>";
+		
+		// zapytanie
+        $sql = "INSERT INTO `ksiazki` (isbn, autor, tytul, cena) VALUES
+  ('9788324633647', 'David Flanagan', 'jQuery. Leksykon kieszonkowy', 24.90),
+  ('9788324608218', 'Luke Welling, Laura Thomson', 'PHP i MySQL Tworzenie stron WWW Vademecum profesjonalisty', 109.00),
+  ('9788328305519', 'Lorna Jane Mitchell', 'API nowoczesnej strony WWW. Usługi sieciowe w PHP', 32.90 ),
+  ('9788324661381', 'Adam Trachtenberg, David Sklar', 'PHP. Receptury', 99.00),
+  ('9788324658442', 'Łukasz Pasternak', 'CSS3. Tworzenie nowoczesnych stron WWW', 59.00),
+  ('9788324655649', 'Włodzimierz Gajda', 'Git. Rozproszony system kontroli wersji', 54.90),
+  ('9788324622047', 'Tom Negrino, Dori Smith', 'Po prostu JavaScript i Ajax', 69.00)
+;";
+		// przygotowanie zapytania
+        $statement = $this->adapter -> query($sql);
+		// wykonanie zapytania
+        $results = $statement -> execute();
+		echo "<pre>";
+		print_r($results);
+		echo "</pre>";
+		
 		return new ViewModel();
 	}
 }
