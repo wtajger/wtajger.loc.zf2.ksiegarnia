@@ -21,6 +21,10 @@ class IndexController extends AbstractActionController
 	
 	public function testAction()
     {
-        return new ViewModel();
+        return new ViewModel(
+		    array(
+			   'msg' => 'Wiadomość'
+			)
+		);
     }
 }
