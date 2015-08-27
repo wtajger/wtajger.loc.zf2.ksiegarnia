@@ -27,4 +27,26 @@ class IndexController extends AbstractActionController
 			)
 		);
     }
+	
+	public function selectAction()
+    {
+	    echo "uruchomiona metoda selectAction()";
+		
+		$sm = $this->getServiceLocator();
+
+        $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
+		
+        $sql = "SELECT * FROM `ksiazki`";
+        $statement = $this->adapter -> query($sql);
+        $results = $statement -> execute();
+        $returnArray = array();
+        foreach ($results as $result) {
+            $returnArray[] = $result;
+        }
+        echo "<pre>";
+        print_r($returnArray);
+        echo "</pre>";
+
+        return new ViewModel();
+    }
 }
