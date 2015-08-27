@@ -45,6 +45,7 @@ class KsiazkaController extends AbstractActionController
         return new ViewModel($arrData);
     }
 	
+	
 	public function restoreAction() 
 	{
 		$sm = $this->getServiceLocator();
@@ -80,4 +81,25 @@ class KsiazkaController extends AbstractActionController
 		
 		return new ViewModel();
 	}
+	
+	
+    public function usunAction()
+    {
+	    // pobranie adaptera
+		$sm = $this->getServiceLocator();
+        $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
+		
+		$isbn = $this->params()->fromQuery('isbn', null);
+		if($isbn===null) {
+		   $msg = "Brak argumentu";
+		}
+		else {
+		   $sql = "DELETE FROM `ksiazki` WHERE isbn = ?";
+		   $statement = $this->adapter -> query($sql);
+		   $results = $statement -> execute(array($isbn));
+		   $msg = "Udało się albo nie";
+		}
+        return new ViewModel(array("msg"=>$msg));
+    }
+
 }
