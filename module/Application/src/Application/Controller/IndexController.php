@@ -30,23 +30,28 @@ class IndexController extends AbstractActionController
 	
 	public function selectAction()
     {
-	    echo "uruchomiona metoda selectAction()";
-		
+	    // pobranie adaptera
 		$sm = $this->getServiceLocator();
-
         $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
 		
+		// zapytanie
         $sql = "SELECT * FROM `ksiazki`";
+		// przygotowanie zapytania
         $statement = $this->adapter -> query($sql);
+		// wykonanie zapytania
         $results = $statement -> execute();
-        $returnArray = array();
+		
+		// przetworzenie wynikow na tablice
+        $rows = array();
         foreach ($results as $result) {
-            $returnArray[] = $result;
+            $rows[] = $result;
         }
-        echo "<pre>";
-        print_r($returnArray);
-        echo "</pre>";
+		// tablice do wyslania
+        $arrData = array(
+		   'info' => 'zapytanie SELECT do tabeli ksiazki',
+		   'rows' => $rows
+		);
 
-        return new ViewModel();
+        return new ViewModel($arrData);
     }
 }
