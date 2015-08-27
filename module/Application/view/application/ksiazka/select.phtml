@@ -1,0 +1,18 @@
+<h4> <?php echo $this->info; ?> </h4>
+
+<table>
+ <tr>
+  <th> isbn <th>
+  <th> autor <th>
+  <th> tytul <th>
+  <th> cena <th>
+ <tr>
+ <?php foreach($this->rows as $intIndex => $arrRow): ?>
+ <tr>
+  <td><?php echo $arrRow['isbn']; ?><td>
+  <td><?php echo $arrRow['autor']; ?><td>
+  <td><?php echo $arrRow['tytul']; ?><td>
+  <td><?php echo $arrRow['cena']; ?><td>
+ <tr>
+ <?php endforeach; ?>
+</table>
