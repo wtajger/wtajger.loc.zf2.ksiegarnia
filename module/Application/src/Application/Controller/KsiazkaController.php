@@ -16,7 +16,6 @@ class KsiazkaController extends AbstractActionController
 {
 	public function selectAction()
     {
-	    echo "Jestem w kontrilerze";
 	    // pobranie adaptera
 		$sm = $this->getServiceLocator();
         $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
@@ -27,6 +26,10 @@ class KsiazkaController extends AbstractActionController
         $statement = $this->adapter -> query($sql);
 		// wykonanie zapytania
         $results = $statement -> execute();
+		
+		echo "<pre>";
+		print_r($results);
+		echo "</pre>";
 		
 		// przetworzenie wynikow na tablice
         $rows = array();
@@ -41,4 +44,21 @@ class KsiazkaController extends AbstractActionController
 
         return new ViewModel($arrData);
     }
+	
+	public function restoreAction() 
+	{
+		$sm = $this->getServiceLocator();
+        $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
+		
+		// zapytanie
+        $sql = "TRUNCATE TABLE `ksiazki`";
+		// przygotowanie zapytania
+        $statement = $this->adapter -> query($sql);
+		// wykonanie zapytania
+        $results = $statement -> execute();
+		echo "<pre>";
+		print_r($results);
+		echo "</pre>";
+		return new ViewModel();
+	}
 }
