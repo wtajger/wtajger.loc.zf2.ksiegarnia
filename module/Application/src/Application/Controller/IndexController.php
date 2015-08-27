@@ -54,4 +54,18 @@ class IndexController extends AbstractActionController
 
         return new ViewModel($arrData);
     }
+	
+    public function czytajAction()
+    {
+	    $arg = $this->params()->fromQuery('arg', null);
+        if($arg===null) 
+		{
+		   $msg = "Brak argumentu";
+		} else 
+		{
+		   $msg = "Argument = " . $arg;
+		}
+        return new ViewModel(array("msg"=>$msg));
+    }
+
 }
