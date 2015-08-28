@@ -14,8 +14,17 @@ use Zend\View\Model\ViewModel;
 
 class KsiazkaController extends AbstractActionController
 {
+	private function _d($arr){
+		echo "<pre>";
+		print_r($arr);
+		echo "</pre>";
+	}
 	public function selectAction()
     {
+		//phpinfo();
+		//$this->_d($_SERVER);
+		//	exit;
+	
 	    // pobranie adaptera
 		$sm = $this->getServiceLocator();
         $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
@@ -57,9 +66,6 @@ class KsiazkaController extends AbstractActionController
         $statement = $this->adapter -> query($sql);
 		// wykonanie zapytania
         $results = $statement -> execute();
-		echo "<pre>";
-		print_r($results);
-		echo "</pre>";
 		
 		// zapytanie
         $sql = "INSERT INTO `ksiazki` (isbn, autor, tytul, cena) VALUES
@@ -99,6 +105,7 @@ class KsiazkaController extends AbstractActionController
 		   $sql = "DELETE FROM `ksiazki` WHERE isbn = ?";
 		   $statement = $this->adapter -> query($sql);
 		   $results = $statement -> execute(array($isbn));
+		
 		   $msg = "Udało się albo nie";
 		}
         return new ViewModel(array("msg"=>$msg));

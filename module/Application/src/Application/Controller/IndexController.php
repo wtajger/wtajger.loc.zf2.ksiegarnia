@@ -16,6 +16,7 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+		
         return new ViewModel();
     }
 	
@@ -30,6 +31,7 @@ class IndexController extends AbstractActionController
 	
 	public function selectAction()
     {
+		echo "aaa";
 	    // pobranie adaptera
 		$sm = $this->getServiceLocator();
         $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
