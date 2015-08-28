@@ -106,7 +106,14 @@ class KsiazkaController extends AbstractActionController
 	
 	public function edytujAction() 
 	{
-	    return new ViewModel();
+	    $isbn = $this->params()->fromQuery('isbn', null);
+		if($isbn===null) {
+		   $msg = "Brak argumentu";
+		}
+		else {
+		   $msg = "Przekazano ISBN = " . $isbn;
+		}
+	    return new ViewModel(array("info"=>$msg));
 	}
 	
 	public function wstawAction() 
