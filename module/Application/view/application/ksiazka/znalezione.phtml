@@ -9,14 +9,21 @@
 // musze recznie includowac
 
 //include_once 'C:\www\loc.zf2\vendor\wtajger\Ksiazka.php'; // OK
+
+/*
 require_once '\vendor\wtajger\Ksiazka.php';
 use Wtajger\Ksiazka;
-
+*/
 $arr = array();
 foreach ($this->rows as $row) {
-  $arr[$row['isbn']] = new Ksiazka($row['isbn'], $row['tytul'], $row['autor'], $row['cena']);
+  echo "<pre>";	
+  print_r($row);
+  echo "</pre>";
+  //$arr[$row['isbn']] = new Ksiazka($row['isbn'], $row['tytul'], $row['autor'], $row['cena']);
 }
+/*
 foreach ($arr as $key=>$val) {
   echo $val . "<br/>";
 }
+*/
 ?>
