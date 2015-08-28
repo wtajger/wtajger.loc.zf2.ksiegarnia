@@ -31,7 +31,7 @@ class IndexController extends AbstractActionController
 		 
          if ($request->isPost()) {
 			 echo "jest post";
-			 
+			 echo "<pre>"; print_r($request->getPost()); echo "</pre>";
 			 
 			 /*
              $album = new Album();
