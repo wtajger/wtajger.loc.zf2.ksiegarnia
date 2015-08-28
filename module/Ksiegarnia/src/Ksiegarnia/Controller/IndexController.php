@@ -15,10 +15,25 @@ use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
+	protected $ksiazkaTable;
+    public function getKsiazkaTable()
+     {
+         if (!$this->ksiazkaTable) {
+             $sm = $this->getServiceLocator();
+             $this->ksiazkaTable = $sm->get('Ksiegarnia\Model\KsiazkaTable');
+         }
+         return $this->ksiazkaTable;
+     }
+	 
+	 /** dodany ! */
     public function indexAction()
     {
-        return new ViewModel();
+		return new ViewModel(array(
+			'ksiazki' => $this->getKsiazkaTable()->fetchAll()
+		));
     }
+	
+	
 	
 	public function wstawAction() 
 	{
@@ -30,8 +45,19 @@ class IndexController extends AbstractActionController
 		 //echo "<pre>"; print_r($request); echo "</pre>";
 		 
          if ($request->isPost()) {
+			if ($form->isValid()) {
+				
+			}
+			 
+			 
+			 
+			 
+			 //------
+			 
+			 
 			 echo "jest post";
 			 echo "<pre>"; print_r($request->getPost()); echo "</pre>";
+			 
 			 
 			 /*
              $album = new Album();
