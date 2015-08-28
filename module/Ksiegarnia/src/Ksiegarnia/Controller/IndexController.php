@@ -9,6 +9,7 @@
 
 namespace Ksiegarnia\Controller;
 
+use Ksiegarnia\Form\KsiazkaForm; //mw
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -21,6 +22,27 @@ class IndexController extends AbstractActionController
 	
 	public function wstawAction() 
 	{
-	    return new ViewModel();
+		$form = new KsiazkaForm();
+         $form->get('submit')->setValue('Add');
+
+         $request = $this->getRequest();
+		 /*
+         if ($request->isPost()) {
+             $album = new Album();
+             $form->setInputFilter($album->getInputFilter());
+             $form->setData($request->getPost());
+
+             if ($form->isValid()) {
+                 $album->exchangeArray($form->getData());
+                 $this->getAlbumTable()->saveAlbum($album);
+
+                 // Redirect to list of albums
+                 return $this->redirect()->toRoute('album');
+             }
+         }
+		 */
+         return array('form' => $form);
+		
+	    //return new ViewModel();
 	}
 }
