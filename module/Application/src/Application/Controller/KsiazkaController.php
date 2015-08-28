@@ -63,14 +63,16 @@ class KsiazkaController extends AbstractActionController
 		
 		// zapytanie
         $sql = "INSERT INTO `ksiazki` (isbn, autor, tytul, cena) VALUES
-  ('9788324633647', 'David Flanagan', 'jQuery. Leksykon kieszonkowy', 24.90),
-  ('9788324608218', 'Luke Welling, Laura Thomson', 'PHP i MySQL Tworzenie stron WWW Vademecum profesjonalisty', 109.00),
-  ('9788328305519', 'Lorna Jane Mitchell', 'API nowoczesnej strony WWW. Usługi sieciowe w PHP', 32.90 ),
-  ('9788324661381', 'Adam Trachtenberg, David Sklar', 'PHP. Receptury', 99.00),
-  ('9788324658442', 'Łukasz Pasternak', 'CSS3. Tworzenie nowoczesnych stron WWW', 59.00),
-  ('9788324655649', 'Włodzimierz Gajda', 'Git. Rozproszony system kontroli wersji', 54.90),
-  ('9788324622047', 'Tom Negrino, Dori Smith', 'Po prostu JavaScript i Ajax', 69.00)
-;";
+        ('9788324633647', 'David Flanagan', 'jQuery. Leksykon kieszonkowy', 24.90),
+        ('9788324608218', 'Luke Welling, Laura Thomson', 'PHP i MySQL Tworzenie stron WWW Vademecum profesjonalisty', 109.00),
+        ('9788328305519', 'Lorna Jane Mitchell', 'API nowoczesnej strony WWW. Usługi sieciowe w PHP', 32.90 ),
+        ('9788324661381', 'Adam Trachtenberg, David Sklar', 'PHP. Receptury', 99.00),
+        ('9788324658442', 'Łukasz Pasternak', 'CSS3. Tworzenie nowoczesnych stron WWW', 59.00),
+        ('9788324655649', 'Włodzimierz Gajda', 'Git. Rozproszony system kontroli wersji', 54.90),
+        ('9788324622047', 'Tom Negrino, Dori Smith', 'Po prostu JavaScript i Ajax', 69.00),
+		('9788324611762', 'Marcin Lis', 'AJAX i PHP. Ćwiczenia praktyczne', 18.99),
+		('9788324606440', 'Cristian Darie, Bogdan Brinzarea, Filip Cherecheş-Toşa, Mihai Bucica', 'AJAX i PHP. Tworzenie interaktywnych aplikacji internetowych', 47.00)
+        ;";
 		// przygotowanie zapytania
         $statement = $this->adapter -> query($sql);
 		// wykonanie zapytania
@@ -128,10 +130,12 @@ class KsiazkaController extends AbstractActionController
             $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
 		
 		    // zapytanie
-            $sql = "SELECT * FROM `ksiazki` WHERE tytul COLLATE UTF8_GENERAL_CI LIKE '%?%'";
+            //$sql = "SELECT * FROM `ksiazki` WHERE tytul COLLATE UTF8_GENERAL_CI LIKE '%?%'";
 			//$sql = "SELECT * FROM `ksiazki` WHERE tytul COLLATE UTF8_GENERAL_CI LIKE ?";
+			//
 			// Znajduje tylko dla
 			// dla "PHP. Receptury" i "SELECT * FROM `ksiazki` WHERE tytul COLLATE UTF8_GENERAL_CI LIKE ?";
+			//
 			// Brak wynikow 
 			// dla "PHP" i "SELECT * FROM `ksiazki` WHERE tytul COLLATE UTF8_GENERAL_CI LIKE ?";
 			// dla "PHP. Receptury" i "SELECT * FROM `ksiazki` WHERE tytul COLLATE UTF8_GENERAL_CI LIKE '%?%'";
@@ -139,7 +143,7 @@ class KsiazkaController extends AbstractActionController
 			//
 			// Zaczyna dzialac dopiero, gdy dostawiam % nie w $sql, ale w przekazuwanej tablicy
 			// gdy execute(array('%' . $szukane . '%' ))
-			$sql = "SELECT * FROM `ksiazki` WHERE tytul COLLATE UTF8_GENERAL_CI LIKE ?";// dla 
+			$sql = "SELECT * FROM `ksiazki` WHERE tytul COLLATE UTF8_GENERAL_CI LIKE :szu";// dla 
 			echo $sql;
 			
 		    // przygotowanie zapytania
@@ -147,7 +151,7 @@ class KsiazkaController extends AbstractActionController
 			
 		    // wykonanie zapytania
 			//$results = $statement -> execute(array($szukane)); // nie dziala!
-            $results = $statement -> execute(array('%' . $szukane . '%' ));
+            $results = $statement -> execute(array('szu' => '%' . $szukane . '%' ));
 		
 		    echo "<pre>";
 		    print_r($results);
@@ -163,7 +167,7 @@ class KsiazkaController extends AbstractActionController
 			
 			// tablice do wyslania
             $arrData = array(
-		        'info' => 'zapytanie SELECT do tabeli ksiazki',
+		        'info' => 'Szukanie "' . $szukane . '" w tytule',
 		        'rows' => $rows
 		    );
             
