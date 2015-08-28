@@ -119,8 +119,56 @@ class KsiazkaController extends AbstractActionController
 	
 	public function znalezioneAction() 
 	{
-	    //if (isset(
-	    return new ViewModel();
+	    var_dump($_POST);
+	
+	    if (isset($_POST['submit']) && isset($_POST['szukane']) ) {
+		    $szukane = $_POST['szukane'];
+    	    // pobranie adaptera
+     		$sm = $this->getServiceLocator();
+            $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
+		
+		    // zapytanie
+            $sql = "SELECT * FROM `ksiazki` WHERE tytul COLLATE UTF8_GENERAL_CI LIKE '%?%'";
+			//$sql = "SELECT * FROM `ksiazki` WHERE tytul COLLATE UTF8_GENERAL_CI LIKE ?";
+			// Znajduje tylko dla
+			// dla "PHP. Receptury" i "SELECT * FROM `ksiazki` WHERE tytul COLLATE UTF8_GENERAL_CI LIKE ?";
+			// Brak wynikow 
+			// dla "PHP" i "SELECT * FROM `ksiazki` WHERE tytul COLLATE UTF8_GENERAL_CI LIKE ?";
+			// dla "PHP. Receptury" i "SELECT * FROM `ksiazki` WHERE tytul COLLATE UTF8_GENERAL_CI LIKE '%?%'";
+			// gdy execute(array($szukane))
+			//
+			// Zaczyna dzialac dopiero, gdy dostawiam % nie w $sql, ale w przekazuwanej tablicy
+			// gdy execute(array('%' . $szukane . '%' ))
+			$sql = "SELECT * FROM `ksiazki` WHERE tytul COLLATE UTF8_GENERAL_CI LIKE ?";// dla 
+			echo $sql;
+			
+		    // przygotowanie zapytania
+            $statement = $this->adapter -> query($sql);
+			
+		    // wykonanie zapytania
+			//$results = $statement -> execute(array($szukane)); // nie dziala!
+            $results = $statement -> execute(array('%' . $szukane . '%' ));
+		
+		    echo "<pre>";
+		    print_r($results);
+		    echo "</pre>";
+		    
+		    // przetworzenie wynikow na tablice
+            $rows = array();
+            foreach ($results as $result) {
+                $rows[] = $result;
+            }
+		    
+			//var_dump($rows);
+			
+			// tablice do wyslania
+            $arrData = array(
+		        'info' => 'zapytanie SELECT do tabeli ksiazki',
+		        'rows' => $rows
+		    );
+            
+		}
+	    return new ViewModel($arrData);
 	}
 
 }
