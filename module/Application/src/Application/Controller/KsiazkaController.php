@@ -101,5 +101,26 @@ class KsiazkaController extends AbstractActionController
 		}
         return new ViewModel(array("msg"=>$msg));
     }
+	
+	public function edytujAction() 
+	{
+	    return new ViewModel();
+	}
+	
+	public function wstawAction() 
+	{
+	    return new ViewModel();
+	}
+	
+	public function szukajAction() 
+	{
+	    return new ViewModel();
+	}
+	
+	public function znalezioneAction() 
+	{
+	    //if (isset(
+	    return new ViewModel();
+	}
 
 }
