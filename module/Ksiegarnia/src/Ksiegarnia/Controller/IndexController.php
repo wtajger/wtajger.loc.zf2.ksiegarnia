@@ -23,11 +23,17 @@ class IndexController extends AbstractActionController
 	public function wstawAction() 
 	{
 		$form = new KsiazkaForm();
-         $form->get('submit')->setValue('Add');
+        $form->get('submit')->setValue('Add');
 
          $request = $this->getRequest();
-		 /*
+		 //var_dump($request);
+		 //echo "<pre>"; print_r($request); echo "</pre>";
+		 
          if ($request->isPost()) {
+			 echo "jest post";
+			 
+			 
+			 /*
              $album = new Album();
              $form->setInputFilter($album->getInputFilter());
              $form->setData($request->getPost());
@@ -39,8 +45,13 @@ class IndexController extends AbstractActionController
                  // Redirect to list of albums
                  return $this->redirect()->toRoute('album');
              }
+			 */
          }
-		 */
+       		 else {
+				 echo "NIE MA post";
+			 }
+		 //echo "<pre>"; print_r($request); echo "</pre>";
+		 
          return array('form' => $form);
 		
 	    //return new ViewModel();

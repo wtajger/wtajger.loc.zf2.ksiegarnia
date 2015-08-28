@@ -19,17 +19,34 @@ namespace Ksiegarnia\Form;
 		 
 		 // dwa pola tekstowe
          $this->add(array(
-             'name' => 'title',
+             'name' => 'tytul',
              'type' => 'Text',
              'options' => array(
-                 'label' => 'Title',
+                 'label' => 'tytul',
              ),
          ));
          $this->add(array(
-             'name' => 'artist',
+             'name' => 'autor',
              'type' => 'Text',
              'options' => array(
-                 'label' => 'Artist',
+                 'label' => 'autor',
+             ),
+         ));
+		 
+		 $this->add(array(
+             'name' => 'isbn',
+             'type' => 'Text',
+			 'value' => '1111',
+             'options' => array(
+                 'label' => 'isbn',
+             ),
+         ));
+		 
+		 $this->add(array(
+             'name' => 'cena',
+             'type' => 'Text',
+             'options' => array(
+                 'label' => 'cena',
              ),
          ));
 		 
