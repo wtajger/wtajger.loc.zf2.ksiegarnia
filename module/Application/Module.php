@@ -28,10 +28,12 @@ class Module
 
     public function getAutoloaderConfig()
     {
+	    // echo __DIR__ . "<br/>"; // "C:\www\loc.zf2\module\Application"
         return array(
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+					'Wtajger' => __DIR__ . './../../vendor/wtajger',
                 ),
             ),
         );
