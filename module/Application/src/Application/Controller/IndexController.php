@@ -18,53 +18,53 @@ class IndexController extends AbstractActionController
     {
         return new ViewModel();
     }
-	
-	public function testAction()
+    
+    public function testAction()
     {
         return new ViewModel(
-		    array(
-			   'msg' => 'Wiadomość'
-			)
-		);
+            array(
+               'msg' => 'Wiadomość'
+            )
+        );
     }
-	
-	public function selectAction()
+    
+    public function selectAction()
     {
-	    // pobranie adaptera
-		$sm = $this->getServiceLocator();
+        // pobranie adaptera
+        $sm = $this->getServiceLocator();
         $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
-		
-		// zapytanie
+        
+        // zapytanie
         $sql = "SELECT * FROM `ksiazki`";
-		// przygotowanie zapytania
+        // przygotowanie zapytania
         $statement = $this->adapter -> query($sql);
-		// wykonanie zapytania
+        // wykonanie zapytania
         $results = $statement -> execute();
-		
-		// przetworzenie wynikow na tablice
+        
+        // przetworzenie wynikow na tablice
         $rows = array();
         foreach ($results as $result) {
             $rows[] = $result;
         }
-		// tablice do wyslania
+        // tablice do wyslania
         $arrData = array(
-		   'info' => 'zapytanie SELECT do tabeli ksiazki',
-		   'rows' => $rows
-		);
+           'info' => 'zapytanie SELECT do tabeli ksiazki',
+           'rows' => $rows
+        );
 
         return new ViewModel($arrData);
     }
-	
+    
     public function czytajAction()
     {
-	    $arg = $this->params()->fromQuery('arg', null);
+        $arg = $this->params()->fromQuery('arg', null);
         if($arg===null) 
-		{
-		   $msg = "Brak argumentu";
-		} else 
-		{
-		   $msg = "Argument = " . $arg;
-		}
+        {
+           $msg = "Brak argumentu";
+        } else 
+        {
+           $msg = "Argument = " . $arg;
+        }
         return new ViewModel(array("msg"=>$msg));
     }
 
