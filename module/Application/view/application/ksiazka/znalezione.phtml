@@ -1,21 +1,11 @@
-<!-- <h4>Widok znalezione</h4> -->
-<h4><?php echo $this->info; ?></h4>
-<?php
-//var_dump($this->rows); // sprawdzenie, czy przeslano dane
-
-//use Wtajger\Ksiazka;
-// nie działa autoloader z vendora
-// musze recznie includowac
-
-//include_once 'C:\www\loc.zf2\vendor\wtajger\Ksiazka.php'; // OK
-//require_once '\vendor\wtajger\Ksiazka.php';
-use Wtajger\Ksiazka;
-
-$arr = array();
-foreach ($this->rows as $row) {
-  $arr[$row['isbn']] = new Ksiazka($row['isbn'], $row['tytul'], $row['autor'], $row['cena']);
-}
-foreach ($arr as $key=>$val) {
-  echo $val . "<br/>";
-}
-?>
+<h4>Widok znalezione <?php echo $this->info; ?></h4>
+<ul>
+  <?php foreach($this->rows as $key=>$row): ?>
+  <li>
+    ISBN: <?php echo $row['isbn']; ?>,
+	<i> <?php echo $row['tytul']; ?></i>,
+	<?php echo $row['autor']; ?>,
+	<b> <?php echo $row['cena']; ?> zł</b>
+  </li>
+  <?php endforeach; ?>
+</ul>
