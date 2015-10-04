@@ -11,6 +11,7 @@ namespace Ksiegarnia\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Ksiegarnia\Form\KsiazkaForm;
 
 class IndexController extends AbstractActionController
 {
@@ -21,6 +22,9 @@ class IndexController extends AbstractActionController
     
     public function wstawAction()
     {
-        return new ViewModel();
+        $form = new KsiazkaForm();
+        $form->get('submit')->setValue('Prześlij');
+        $request = $this->getRequest();
+        return array('form' => $form);
     }
 }

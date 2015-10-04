@@ -51,7 +51,7 @@ class KsiazkaForm extends Form
             'name' => 'submit',
             'type' => 'Submit',
             'attributes' => array(
-                'value' => 'Prześlij',
+                'value' => 'Go',
                 'id' => 'submitbutton',
             ),
         ));

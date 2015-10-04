@@ -1,1 +1,17 @@
-Jestem w ksiegarnia/index/wstaw
+<?php
+$title = 'Wstaw nową książkę';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+//$form->setAttribute('action', $this->url('album', array('action' => 'add')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('isbn'));
+echo $this->formRow($form->get('tytul'));
+echo "<br/>";
+echo $this->formRow($form->get('autor'));
+echo $this->formRow($form->get('cena'));
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
