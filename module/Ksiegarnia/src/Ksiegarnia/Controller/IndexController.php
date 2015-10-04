@@ -25,6 +25,11 @@ class IndexController extends AbstractActionController
         $form = new KsiazkaForm();
         $form->get('submit')->setValue('Prześlij');
         $request = $this->getRequest();
+        if ($request->isPost()) { // jezeli odebrano formularz
+            echo "<pre>";
+            print_r($request->getPost());
+            echo "</pre>";
+        }
         return array('form' => $form);
     }
 }
