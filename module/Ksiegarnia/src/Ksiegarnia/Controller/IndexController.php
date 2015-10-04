@@ -15,10 +15,23 @@ use Ksiegarnia\Form\KsiazkaForm;
 
 class IndexController extends AbstractActionController
 {
+    protected $ksiazkaTable;
+    
+    public function getKsiazkaTable()
+    {
+        if (!$this->ksiazkaTable) {
+            $sm = $this->getServiceLocator();
+            $this->ksiazkaTable = $sm->get('Ksiegarnia\Model\KsiazkaTable');
+        }
+        return $this->ksiazkaTable;
+    }
+   
     public function indexAction()
     {
-        return new ViewModel();
-    }
+        return new ViewModel( array(
+            'ksiazki' => $this->getKsiazkaTable()->fetchAll()
+        ));
+    }  
     
     public function wstawAction()
     {

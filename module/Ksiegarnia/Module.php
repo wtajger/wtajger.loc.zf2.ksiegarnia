@@ -12,6 +12,12 @@ namespace Ksiegarnia;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
+use Ksiegarnia\Model\Ksiazka;
+use Ksiegarnia\Model\KsiazkaTable;
+
+
 class Module
 {
     public function onBootstrap(MvcEvent $e)
@@ -36,4 +42,23 @@ class Module
             ),
         );
     }
+    
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'Ksiegarnia\Model\KsiazkaTable' =>  function($sm) {
+                    $tableGateway = $sm->get('KsiazkaTableGateway');
+                    $table = new KsiazkaTable($tableGateway);
+                    return $table;
+                },
+                'KsiazkaTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Ksiazka());
+                    return new TableGateway('ksiazki', $dbAdapter, null, $resultSetPrototype);
+                },
+            ),
+        );
+    }  
 }
